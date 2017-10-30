@@ -7,9 +7,10 @@
     </div>
     <b-card no-body>
       <b-tabs ref="tabs" card>
-        <b-tab title="Tab 1">
+        <b-tab title="Shelfs" active>
+          <shelf-table/>
         </b-tab>
-        <b-tab title="Tab 2" active>
+        <b-tab title="Books">
           <signature-loader/>
           <signature-table/>
         </b-tab>
@@ -19,14 +20,15 @@
 </template>
 
 <script>
-
 import SignatureLoader from '@/components/SignatureLoader'
 import SignatureTable from '@/components/SignatureTable'
+import ShelfTable from '@/components/ShelfTable'
 
 export default {
   components: {
     SignatureLoader,
     SignatureTable,
+    ShelfTable,
   },
 }
 </script>

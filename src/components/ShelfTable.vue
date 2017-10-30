@@ -5,18 +5,23 @@
         <input v-model="filter" placeholder="Type to Search" />
       </div>
       <div class="col-sm-8 text-right">
+        <label>Floor:</label>
+        <select v-model="floor" @change="changeFloor(floor)" class="btn dropdown-toggle">
+          <option v-for="floor in store.state.floors" :key="floor.id" :value="floor">
+            {{ Math.abs(floor.floor).toString() + (floor.floor < 0 ? 'PP' : 'NP') }}
+          </option>
+        </select>
       </div>
     </b-form-row>
     <b-table striped hover bordered show-empty
-      :items="store.state.data"
-      :fields="fields"
+      :items="store.state.data[floor.id]"
       :current-page="currentPage"
       :per-page="perPage"
-      :sort-by.sync="sortBy"
+      :fields="fields"
       :filter="filter"
        @filtered="onFiltered">
-      <template slot="actions" slot-scope="row">
-        <b-btn size="sm" @click.stop="store.commit('removeRow', row.item)">Remove</b-btn>
+      <template slot="floor" slot-scope="row">
+        {{ currentFloor }}
       </template>
     </b-table>
     <div class="row">
@@ -36,33 +41,31 @@
 </template>
 
 <script>
-import store from '@/stores/SignatureStore'
+import store from '@/stores/ShelfStore'
+
+store.dispatch('fetchData')
 
 export default {
   data() {
     return {
       store: store,
-      fields: {
-        index: { label: 'Index', sortable: true },
-        signature: { label: 'Signature', sortable: true },
-        signature_prefix: { label: 'Signature prefix', sortable: true },
-        signature_number: { label: 'Signature number', sortable: true },
-        volumes_total: { label: 'Volumes total', sortable: true },
-        volumes_in_timerange: { label: 'Volumes in timerange', sortable: true },
-        year_min: { label: 'Since year', sortable: true },
-        year_max: { label: 'To year', sortable: true },
-        actions: { label: 'Actions' }
-      },
+      floor: '',
+      currentFloor: '',
       currentPage: 1,
       perPage: 5,
-      totalRows: store.state.data.length,
+      totalRows: 0,
+      filter: '',
       pageOpts: [
         { label: '5', value: 5 },
         { label: '10', value: 10 },
         { label: '20', value: 20 }
       ],
-      filter: '',
-      sortBy: null,
+      fields: {
+        floor: { label: 'Floor' },
+        name: { label: 'Name', sortable: true },
+        row_length: { label: 'Length in cm', sortable: true },
+        levels: { label: 'Levels', sortable: true },
+      },
     }
   },
   methods: {
@@ -70,7 +73,11 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-  }
+    changeFloor() {
+      this.totalRows = store.state.data[this.floor.id].length
+      this.currentFloor = Math.abs(this.floor.floor).toString() + (this.floor.floor < 0 ? 'PP' : 'NP')
+    }
+  },
 }
 </script>
 

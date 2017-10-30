@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import store from '@/stores/store'
+import store from '@/stores/SignatureStore'
 
 export default {
   data() {

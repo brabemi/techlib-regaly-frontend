@@ -31,7 +31,6 @@ export default new Vuex.Store({
   mutations: {
     updateSavedData(state, data) {
       state.data = data
-      // console.log(state.data)
     },
     removeRow(state, row) {
       var index = binarySearch(state.data, row, function(a, b) { return a.index - b.index })
@@ -47,7 +46,6 @@ export default new Vuex.Store({
       if (params.sig_num_max !== '') { filter.push('sig_num_max=' + escape(params.sig_num_max)) }
       if (params.from_year !== '') { filter.push('from_year=' + escape(params.from_year)) }
       if (params.to_year !== '') { filter.push('to_year=' + escape(params.to_year)) }
-      // console.log('/signature' + '?' + filter.join('&'))
       instance.get('/signature' + '?' + filter.join('&'))
       .then(function(response) {
         commit(
