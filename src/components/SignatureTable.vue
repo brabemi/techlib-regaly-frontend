@@ -73,18 +73,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.table {
-  margin-bottom: 0px
-}
-
-.pagination {
-  margin: 0px
-}
-
-.table th,
-.table td {
-  padding: 0.25rem
-}
-</style>

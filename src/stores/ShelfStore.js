@@ -16,9 +16,15 @@ export default new Vuex.Store({
   mutations: {
     updateFloors(state, floors) {
       state.floors = floors
+      state.floors.forEach(function(e) {
+        e.floor_name = Math.abs(e.floor).toString() + (e.floor < 0 ? 'PP' : 'NP')
+      })
     },
     updateFloor(state, data) {
       state.data[data.floor.id] = data.shelfrows
+      state.data[data.floor.id].forEach(function(e) {
+        e.floor_name = data.floor.floor_name
+      })
     },
   },
   actions: {
@@ -33,7 +39,7 @@ export default new Vuex.Store({
     },
     loadFloors({ commit }, floors) {
       commit('updateFloors', floors)
-      floors.forEach(function(element) {
+      this.state.floors.forEach(function(element) {
         instance.get('/floor/' + element.id + '/shelfrows')
         .then(function(response) {
           commit('updateFloor', { floor: element, shelfrows: response.data })

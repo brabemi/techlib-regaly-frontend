@@ -1,36 +1,31 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <div class="col-sm-4 text-left">
+      <!-- <div class="col-sm-4 text-left">
         <input v-model="filter" placeholder="Type to Search" />
       </div>
       <div class="col-sm-8 text-right">
         <label>Floor:</label>
         <select v-model="floor" @change="changeFloor(floor)" class="btn dropdown-toggle">
           <option v-for="floor in store.state.floors" :key="floor.id" :value="floor">
-            {{ floor.floor_name }}
-            <!-- {{ Math.abs(floor.floor).toString() + (floor.floor < 0 ? 'PP' : 'NP') }} -->
+            {{ Math.abs(floor.floor).toString() + (floor.floor < 0 ? 'PP' : 'NP') }}
           </option>
         </select>
-      </div>
+      </div> -->
     </b-form-row>
     <b-table striped hover bordered show-empty
-      :items="store.state.data[floor.id]"
-      :current-page="currentPage"
-      :per-page="perPage"
+      :items="store.state.shelfs"
       :fields="fields"
-      :filter="filter"
-       @filtered="onFiltered">
+      :current-page="currentPage"
+      :per-page="perPage">
+      <!-- :filter="filter" -->
+       <!-- @filtered="onFiltered"> -->
       <!-- <template slot="floor" slot-scope="row">
         {{ currentFloor }}
-      </template> -->
+      </template>
       <template slot="row_length" slot-scope="row">
         {{ row.value + ' cm' }}
-      </template>
-      <template slot="actions" slot-scope="row">
-        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-btn size="sm" @click.stop="addShelfToSim(row.item)">Add</b-btn>
-      </template>
+      </template> -->
     </b-table>
     <div class="row">
       <div class="col-sm-4 text-left">
@@ -49,8 +44,7 @@
 </template>
 
 <script>
-import store from '@/stores/ShelfStore'
-import simulationStore from '@/stores/SimulationStore'
+import store from '@/stores/SimulationStore'
 
 store.dispatch('fetchData')
 
@@ -58,11 +52,8 @@ export default {
   data() {
     return {
       store: store,
-      floor: '',
-      // currentFloor: '',
       currentPage: 1,
       perPage: 5,
-      totalRows: 0,
       filter: '',
       pageOpts: [
         { label: '5', value: 5 },
@@ -74,25 +65,19 @@ export default {
         name: { label: 'Name', sortable: true },
         row_length: { label: 'Length in cm', sortable: true },
         levels: { label: 'Levels', sortable: true },
-        actions: { label: 'Actions' },
       },
     }
+  },
+  computed: {
+    totalRows: function() {
+      return store.state.shelfs.length
+    },
   },
   methods: {
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    changeFloor() {
-      this.totalRows = store.state.data[this.floor.id].length
-      // this.currentFloor = this.floor.floor_name
-    },
-    addShelfToSim(shelf) {
-      // console.log(shelf.floor)
-      // shelf.floor = this.currentFloor
-      // console.log(shelf.floor)
-      simulationStore.commit('addShelf', shelf)
-    }
   },
 }
 </script>

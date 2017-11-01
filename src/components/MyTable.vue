@@ -8,11 +8,22 @@
     <b-card no-body>
       <b-tabs ref="tabs" card>
         <b-tab title="Shelfs" active>
-          <shelf-table/>
+          <b-row>
+            <b-col>
+              <simulation-shelf-table/>
+            </b-col>
+            <b-col>
+              <shelf-table/>
+            </b-col>
+          </b-row>
         </b-tab>
         <b-tab title="Books">
-          <signature-loader/>
-          <signature-table/>
+          <b-row>
+            <b-col>
+              <signature-loader/>
+              <signature-table/>
+            </b-col>
+          </b-row>
         </b-tab>
       </b-tabs>
     </b-card>
@@ -22,6 +33,7 @@
 <script>
 import SignatureLoader from '@/components/SignatureLoader'
 import SignatureTable from '@/components/SignatureTable'
+import SimulationShelfTable from '@/components/SimulationShelfTable'
 import ShelfTable from '@/components/ShelfTable'
 
 export default {
@@ -29,6 +41,22 @@ export default {
     SignatureLoader,
     SignatureTable,
     ShelfTable,
+    SimulationShelfTable,
   },
 }
 </script>
+
+<style>
+.table {
+  margin-bottom: 0px
+}
+
+.pagination {
+  margin: 0px
+}
+
+.table th,
+.table td {
+  padding: 0.25rem
+}
+</style>
