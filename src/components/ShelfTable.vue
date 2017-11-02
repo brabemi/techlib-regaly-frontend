@@ -9,27 +9,24 @@
         <select v-model="floor" @change="changeFloor(floor)" class="btn dropdown-toggle">
           <option v-for="floor in store.state.floors" :key="floor.id" :value="floor">
             {{ floor.floor_name }}
-            <!-- {{ Math.abs(floor.floor).toString() + (floor.floor < 0 ? 'PP' : 'NP') }} -->
           </option>
         </select>
       </div>
     </b-form-row>
     <b-table striped hover bordered show-empty
-      :items="store.state.data[floor.id]"
+      ref="shelf-table"
+      :items="items"
       :current-page="currentPage"
       :per-page="perPage"
       :fields="fields"
       :filter="filter"
        @filtered="onFiltered">
-      <!-- <template slot="floor" slot-scope="row">
-        {{ currentFloor }}
-      </template> -->
       <template slot="row_length" slot-scope="row">
         {{ row.value + ' cm' }}
       </template>
       <template slot="actions" slot-scope="row">
         <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-btn size="sm" @click.stop="addShelfToSim(row.item)">Add</b-btn>
+        <b-btn size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">Add</b-btn>
       </template>
     </b-table>
     <div class="row">
@@ -59,7 +56,7 @@ export default {
     return {
       store: store,
       floor: '',
-      // currentFloor: '',
+      items: [],
       currentPage: 1,
       perPage: 5,
       totalRows: 0,
@@ -75,6 +72,7 @@ export default {
         row_length: { label: 'Length in cm', sortable: true },
         levels: { label: 'Levels', sortable: true },
         actions: { label: 'Actions' },
+        // index: {},
       },
     }
   },
@@ -84,15 +82,14 @@ export default {
       this.currentPage = 1
     },
     changeFloor() {
-      this.totalRows = store.state.data[this.floor.id].length
-      // this.currentFloor = this.floor.floor_name
+      this.items = store.state.data[this.floor.id]
+      this.totalRows = this.items.length
     },
     addShelfToSim(shelf) {
-      // console.log(shelf.floor)
-      // shelf.floor = this.currentFloor
-      // console.log(shelf.floor)
-      simulationStore.commit('addShelf', shelf)
-    }
+      shelf._used = true
+      var tmpShelf = JSON.parse(JSON.stringify(shelf))
+      simulationStore.commit('addShelf', tmpShelf)
+    },
   },
 }
 </script>

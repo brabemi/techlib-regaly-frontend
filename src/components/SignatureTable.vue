@@ -5,6 +5,7 @@
         <input v-model="filter" placeholder="Type to Search" />
       </div>
       <div class="col-sm-8 text-right">
+         <b-button @click="addBooksToSim">Add all</b-button>
       </div>
     </b-form-row>
     <b-table striped hover bordered show-empty
@@ -15,6 +16,9 @@
       :sort-by.sync="sortBy"
       :filter="filter"
        @filtered="onFiltered">
+      <template slot="signature_number" slot-scope="row">
+        {{ row.item.signature }}
+      </template>
       <template slot="actions" slot-scope="row">
         <b-btn size="sm" @click.stop="store.commit('removeRow', row.item)">Remove</b-btn>
       </template>
@@ -37,20 +41,15 @@
 
 <script>
 import store from '@/stores/SignatureStore'
+import simulationStore from '@/stores/SimulationStore'
 
 export default {
   data() {
     return {
       store: store,
       fields: {
-        index: { label: 'Index', sortable: true },
-        signature: { label: 'Signature', sortable: true },
-        signature_prefix: { label: 'Signature prefix', sortable: true },
-        signature_number: { label: 'Signature number', sortable: true },
-        volumes_total: { label: 'Volumes total', sortable: true },
-        volumes_in_timerange: { label: 'Volumes in timerange', sortable: true },
-        year_min: { label: 'Since year', sortable: true },
-        year_max: { label: 'To year', sortable: true },
+        signature_number: { label: 'Signature', sortable: true },
+        volumes_in_timerange: { label: 'Volumes', sortable: true },
         actions: { label: 'Actions' }
       },
       currentPage: 1,
@@ -69,6 +68,11 @@ export default {
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    addBooksToSim() {
+      console.log(store.state.data, store.state.data.length)
+      simulationStore.commit('addBooks', store.state.data)
+      store.commit('clearData')
     },
   }
 }

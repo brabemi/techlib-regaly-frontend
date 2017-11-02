@@ -31,11 +31,17 @@ export default new Vuex.Store({
   mutations: {
     updateSavedData(state, data) {
       state.data = data
+      state.data.forEach(function(e, i) {
+        e.index = i
+      })
     },
     removeRow(state, row) {
       var index = binarySearch(state.data, row, function(a, b) { return a.index - b.index })
-      console.log(row === state.data[index])
+      // console.log(row === state.data[index])
       state.data.splice(index, 1)
+    },
+    clearData(state) {
+      state.data = []
     }
   },
   actions: {
@@ -51,11 +57,7 @@ export default new Vuex.Store({
         commit(
           'updateSavedData',
           response.data.map(function(row) { return processData(row, params.from_year, params.to_year) })
-            .filter(function(e) { return e.volumes_in_timerange > 0 })
-            .map(function(e, i) {
-              e.index = i
-              return e
-            })
+          .filter(function(e) { return e.volumes_in_timerange > 0 })
         )
       })
       .catch(function(error) {

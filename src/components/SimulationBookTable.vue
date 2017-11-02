@@ -3,12 +3,12 @@
     <b-row>
     </b-row>
     <b-table striped hover bordered show-empty
-      :items="store.state.shelfs"
+      :items="store.state.books"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage">
-      <template slot="row_length" slot-scope="row">
-        {{ row.value + ' cm' }}
+      <template slot="signature_number" slot-scope="row">
+        {{ row.item.signature }}
       </template>
       <template slot="actions" slot-scope="row">
         <b-btn size="sm" @click.stop="removeRow(row.item)">Remove</b-btn>
@@ -32,9 +32,6 @@
 
 <script>
 import store from '@/stores/SimulationStore'
-import shelfStore from '@/stores/ShelfStore'
-
-// store.dispatch('fetchData')
 
 export default {
   data() {
@@ -49,28 +46,20 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        floor_name: { label: 'Floor' },
-        name: { label: 'Name', sortable: false },
-        row_length: { label: 'Length in cm', sortable: false },
-        levels: { label: 'Levels', sortable: false },
-        actions: { label: 'Actions' },
-        // index: {},
+        signature_number: { label: 'Signature', sortable: true },
+        volumes_in_timerange: { label: 'Volumes', sortable: true },
+        actions: { label: 'Actions' }
       },
     }
   },
   computed: {
     totalRows: function() {
-      return store.state.shelfs.length
+      return store.state.books.length
     },
   },
   methods: {
-    onFiltered(filteredItems) {
-      this.totalRows = filteredItems.length
-      this.currentPage = 1
-    },
-    removeRow(shelf) {
-      store.commit('removeShelf', shelf)
-      shelfStore.commit('unusedShelf', shelf)
+    removeRow(book) {
+      store.commit('removeBook', book)
     },
   },
 }

@@ -19,8 +19,13 @@
         </b-tab>
         <b-tab title="Books">
           <b-row>
-            <b-col>
               <signature-loader/>
+          </b-row>
+          <b-row>
+            <b-col>
+              <simulation-book-table/>
+            </b-col>
+            <b-col>
               <signature-table/>
             </b-col>
           </b-row>
@@ -33,6 +38,7 @@
 <script>
 import SignatureLoader from '@/components/SignatureLoader'
 import SignatureTable from '@/components/SignatureTable'
+import SimulationBookTable from '@/components/SimulationBookTable'
 import SimulationShelfTable from '@/components/SimulationShelfTable'
 import ShelfTable from '@/components/ShelfTable'
 
@@ -42,6 +48,7 @@ export default {
     SignatureTable,
     ShelfTable,
     SimulationShelfTable,
+    SimulationBookTable,
   },
 }
 </script>
