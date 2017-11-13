@@ -1,6 +1,15 @@
 <template>
   <b-container fluid>
     <b-row>
+      <b-col class="text-left">
+        {{
+          'Total length: ' + totalLength.toLocaleString('cs-CZ') +
+          ' cm (approximately ' + Math.floor(totalLength / 3.5).toLocaleString('cs-CZ') + ' volumes)'
+        }}
+      </b-col>
+      <b-col class="text-right">
+        <b-button @click="removeAll">Remove All</b-button>
+      </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
       :items="store.state.shelfs"
@@ -54,13 +63,19 @@ export default {
         row_length: { label: 'Length in cm', sortable: false },
         levels: { label: 'Levels', sortable: false },
         actions: { label: 'Actions' },
-        // index: {},
       },
     }
   },
   computed: {
     totalRows: function() {
       return store.state.shelfs.length
+    },
+    totalLength: function() {
+      var length = 0
+      store.state.shelfs.forEach(function(shelf) {
+        length += shelf.row_length * shelf.levels
+      })
+      return length
     },
   },
   methods: {
@@ -71,6 +86,12 @@ export default {
     removeRow(shelf) {
       store.commit('removeShelf', shelf)
       shelfStore.commit('unusedShelf', shelf)
+    },
+    removeAll(shelf) {
+      store.state.shelfs.forEach(function(shelf) {
+        shelfStore.commit('unusedShelf', shelf)
+      })
+      store.commit('removeAllShelfs')
     },
   },
 }

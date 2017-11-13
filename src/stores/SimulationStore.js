@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 import binarySearch from 'binary-search'
 
 Vue.use(Vuex)
+
+var instance = axios.create({
+  baseURL: 'http://localhost:4567'
+})
 
 export default new Vuex.Store({
   state: {
     shelfIndex: 0,
     shelfs: [],
     bookIndex: 0,
-    books: []
+    books: [],
+    volumeWidth: 3.5,
   },
   mutations: {
     addShelf(state, shelf) {
@@ -21,7 +27,9 @@ export default new Vuex.Store({
       var index = binarySearch(state.shelfs, shelf, function(a, b) { return a.index - b.index })
       state.shelfs.splice(index, 1)
     },
-    addBook(state, book) {
+    removeAllShelfs(state) {
+      state.shelfs = []
+      state.shelfIndex = 0
     },
     addBooks(state, books) {
       books.forEach(function(e) {
@@ -29,16 +37,26 @@ export default new Vuex.Store({
         state.bookIndex += 1
       })
       state.books = state.books.concat(books)
-      console.log(state.books)
     },
     removeBook(state, book) {
       var index = binarySearch(state.books, book, function(a, b) { return a.index - b.index })
       state.books.splice(index, 1)
     },
+    removeAllBooks(state) {
+      state.books = []
+      state.bookIndex = 0
+    },
 
   },
   actions: {
-    // fetchData({ commit, dispatch }) {
-    // },
+    saveData() {
+      var data = {
+        shelfs: this.state.shelfs,
+        books: this.state.books,
+      }
+      instance.put('/simulation', data)
+      .then(r => console.log(r.status))
+      .catch(e => console.log(e))
+    },
   }
 })

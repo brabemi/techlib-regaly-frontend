@@ -1,10 +1,16 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <div class="col-sm-4 text-left">
+      <div class="col-sm-3 text-left">
         <input v-model="filter" placeholder="Type to Search" />
       </div>
-      <div class="col-sm-8 text-right">
+      <div class="col-sm-6 text-left">
+        {{
+          'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
+          ' (approximately ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
+        }}
+      </div>
+      <div class="col-sm-3 text-right">
          <b-button @click="addBooksToSim">Add all</b-button>
       </div>
     </b-form-row>
@@ -64,13 +70,21 @@ export default {
       sortBy: null,
     }
   },
+  computed: {
+    totalVolumes: function() {
+      var volumes = 0
+      store.state.data.forEach(function(book) {
+        volumes += book.volumes_in_timerange
+      })
+      return volumes
+    }
+  },
   methods: {
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
     addBooksToSim() {
-      console.log(store.state.data, store.state.data.length)
       simulationStore.commit('addBooks', store.state.data)
       store.commit('clearData')
     },

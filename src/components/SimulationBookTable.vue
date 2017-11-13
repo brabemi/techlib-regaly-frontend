@@ -1,6 +1,15 @@
 <template>
   <b-container fluid>
     <b-row>
+      <b-col class="text-left">
+        {{
+          'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
+          ' (approximately ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
+        }}
+      </b-col>
+      <b-col class="text-right">
+         <b-button @click="removeAll">Remove All</b-button>
+      </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
       :items="store.state.books"
@@ -56,10 +65,20 @@ export default {
     totalRows: function() {
       return store.state.books.length
     },
+    totalVolumes: function() {
+      var volumes = 0
+      store.state.books.forEach(function(book) {
+        volumes += book.volumes_in_timerange
+      })
+      return volumes
+    }
   },
   methods: {
     removeRow(book) {
       store.commit('removeBook', book)
+    },
+    removeAll() {
+      store.commit('removeAllBooks')
     },
   },
 }

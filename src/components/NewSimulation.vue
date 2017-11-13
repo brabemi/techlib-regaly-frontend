@@ -7,7 +7,24 @@
     </div>
     <b-card no-body>
       <b-tabs ref="tabs" card>
-        <b-tab title="Shelfs" active>
+        <b-tab title="Simulation" active>
+          <b-row>
+            <b-col>
+              <simulation-shelf-table/>
+            </b-col>
+            <b-col>
+              <simulation-book-table/>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-container fluid>
+              <b-col class="text-right">
+                <!-- <b-button @click="store.dispatch('saveData')">Save simulation</b-button> -->
+              </b-col>
+            </b-container>
+          </b-row>
+        </b-tab>
+        <b-tab title="Shelfs">
           <b-row>
             <b-col>
               <simulation-shelf-table/>
@@ -19,7 +36,9 @@
         </b-tab>
         <b-tab title="Books">
           <b-row>
+            <b-col>
               <signature-loader/>
+            </b-col>
           </b-row>
           <b-row>
             <b-col>
@@ -30,25 +49,41 @@
             </b-col>
           </b-row>
         </b-tab>
+        <b-tab title="Visualization">
+          <b-row>
+            <b-col>
+              <simulation-visualization/>
+            </b-col>
+          </b-row>
+        </b-tab>
+
       </b-tabs>
     </b-card>
   </div>
 </template>
 
 <script>
+import store from '@/stores/SimulationStore'
 import SignatureLoader from '@/components/SignatureLoader'
 import SignatureTable from '@/components/SignatureTable'
 import SimulationBookTable from '@/components/SimulationBookTable'
 import SimulationShelfTable from '@/components/SimulationShelfTable'
 import ShelfTable from '@/components/ShelfTable'
+import SimulationVisualization from '@/components/SimulationVisualization'
 
 export default {
+  data() {
+    return {
+      store: store,
+    }
+  },
   components: {
     SignatureLoader,
     SignatureTable,
     ShelfTable,
     SimulationShelfTable,
     SimulationBookTable,
+    SimulationVisualization,
   },
 }
 </script>
