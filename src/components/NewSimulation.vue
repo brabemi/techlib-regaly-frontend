@@ -40,6 +40,7 @@
               <signature-loader/>
             </b-col>
           </b-row>
+          <hr>
           <b-row>
             <b-col>
               <simulation-book-table/>
@@ -89,7 +90,7 @@ export default {
 </script>
 
 <style>
-.table {
+/* .table {
   margin-bottom: 0px
 }
 
@@ -100,5 +101,5 @@ export default {
 .table th,
 .table td {
   padding: 0.25rem
-}
+} */
 </style>

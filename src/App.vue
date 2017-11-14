@@ -1,12 +1,12 @@
 <template>
   <div class="pf-layout" id="app">
-    <nav role="navigation" class="navbar navbar-pf">
+    <!-- <nav role="navigation" class="navbar navbar-pf">
       <div class="navbar-header">
         <a href="#/" class="navbar-brand navbar-brand-name">
           <b>Regaly</b>
         </a>
       </div>
-    </nav>
+    </nav> -->
     <div class="container-flex container-fluid ">
       <router-view/>
     </div>

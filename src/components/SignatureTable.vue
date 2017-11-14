@@ -1,18 +1,18 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <div class="col-sm-3 text-left">
+      <!-- <div class="col-sm-3 text-left">
         <input v-model="filter" placeholder="Type to Search" />
-      </div>
-      <div class="col-sm-6 text-left">
+      </div> -->
+      <b-col cols="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
           ' (approximately ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
         }}
-      </div>
-      <div class="col-sm-3 text-right">
+      </b-col>
+      <b-col cols="3" class="text-right">
          <b-button @click="addBooksToSim">Add all</b-button>
-      </div>
+      </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
       :items="store.state.data"
@@ -59,7 +59,7 @@ export default {
         actions: { label: 'Actions' }
       },
       currentPage: 1,
-      perPage: 5,
+      perPage: 10,
       totalRows: store.state.data.length,
       pageOpts: [
         { label: '5', value: 5 },

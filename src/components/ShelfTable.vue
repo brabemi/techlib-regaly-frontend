@@ -1,17 +1,19 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <div class="col-sm-4 text-left">
+      <!-- <div class="col-sm-4 text-left">
         <input v-model="filter" placeholder="Type to Search" />
-      </div>
-      <div class="col-sm-8 text-right">
+      </div> -->
+      <b-col cols="9" class="text-left">
+      </b-col>
+      <b-col cols="3" class="text-right">
         <label>Floor:</label>
         <select v-model="floor" @change="changeFloor(floor)" class="btn dropdown-toggle">
           <option v-for="floor in store.state.floors" :key="floor.id" :value="floor">
             {{ floor.floor_name }}
           </option>
         </select>
-      </div>
+      </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
       ref="shelf-table"
@@ -58,7 +60,7 @@ export default {
       floor: '',
       items: [],
       currentPage: 1,
-      perPage: 5,
+      perPage: 10,
       totalRows: 0,
       filter: '',
       pageOpts: [

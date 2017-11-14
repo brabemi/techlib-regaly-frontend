@@ -7,8 +7,6 @@ import BootstrapVue from 'bootstrap-vue'
 
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
-// import 'patternfly/dist/css/patternfly.css'
-// import 'patternfly/dist/css/patternfly-additions.css'
 
 Vue.use(BootstrapVue)
 

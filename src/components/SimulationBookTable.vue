@@ -1,13 +1,13 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col class="text-left">
+      <b-col cols="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
-          ' (approximately ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
+          ' (cca ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
         }}
       </b-col>
-      <b-col class="text-right">
+      <b-col cols="3" class="text-right">
          <b-button @click="removeAll">Remove All</b-button>
       </b-col>
     </b-row>
@@ -47,7 +47,7 @@ export default {
     return {
       store: store,
       currentPage: 1,
-      perPage: 5,
+      perPage: 10,
       filter: '',
       pageOpts: [
         { label: '5', value: 5 },
@@ -55,8 +55,8 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        signature_number: { label: 'Signature', sortable: true },
-        volumes_in_timerange: { label: 'Volumes', sortable: true },
+        signature_number: { label: 'Signature', sortable: false },
+        volumes_in_timerange: { label: 'Volumes', sortable: false },
         actions: { label: 'Actions' }
       },
     }
