@@ -1,9 +1,9 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <!-- <div class="col-sm-3 text-left">
+      <!-- <b-col cols="3" class="text-left">
         <input v-model="filter" placeholder="Type to Search" />
-      </div> -->
+      </b-col> -->
       <b-col cols="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
@@ -29,19 +29,19 @@
         <b-btn size="sm" @click.stop="store.commit('removeRow', row.item)">Remove</b-btn>
       </template>
     </b-table>
-    <div class="row">
-      <div class="col-sm-4 text-left">
+    <b-row>
+      <b-col cols="4" class="text-left">
         <select v-model="perPage" class="btn dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>
-      </div>
-      <div class="col-sm-4 text-center">
-      </div>
-      <div class="col-sm-4 text-right">
+      </b-col>
+      <b-col cols="4" class="text-center">
+      </b-col>
+      <b-col cols="4" class="text-right">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
-      </div>
-    </div>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 

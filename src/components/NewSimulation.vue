@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-10">
+  <b-container fluid>
+    <b-row>
+      <b-col cols="12">
         <h1>Table</h1>
-      </div>
-    </div>
+      </b-col>
+    </b-row>
     <b-card no-body>
       <b-tabs ref="tabs" card>
         <b-tab title="Simulation" active>
           <b-row>
             <b-col>
-              <simulation-shelf-table/>
+              <simulation-book-table/>
             </b-col>
             <b-col>
-              <simulation-book-table/>
+              <simulation-shelf-table/>
             </b-col>
           </b-row>
           <b-row>
@@ -22,16 +22,6 @@
                 <!-- <b-button @click="store.dispatch('saveData')">Save simulation</b-button> -->
               </b-col>
             </b-container>
-          </b-row>
-        </b-tab>
-        <b-tab title="Shelfs">
-          <b-row>
-            <b-col>
-              <simulation-shelf-table/>
-            </b-col>
-            <b-col>
-              <shelf-table/>
-            </b-col>
           </b-row>
         </b-tab>
         <b-tab title="Books">
@@ -50,6 +40,16 @@
             </b-col>
           </b-row>
         </b-tab>
+        <b-tab title="Shelfs">
+          <b-row>
+            <b-col>
+              <simulation-shelf-table/>
+            </b-col>
+            <b-col>
+              <shelf-table/>
+            </b-col>
+          </b-row>
+        </b-tab>
         <b-tab title="Visualization">
           <b-row>
             <b-col>
@@ -57,10 +57,9 @@
             </b-col>
           </b-row>
         </b-tab>
-
       </b-tabs>
     </b-card>
-  </div>
+  </b-container>
 </template>
 
 <script>

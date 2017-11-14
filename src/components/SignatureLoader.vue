@@ -1,25 +1,25 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <b-col sm="3">
-        <div class="form-group">
+      <b-col cols="3">
+        <b-form inline>
         <label>Signature prefix:</label>
-        <input v-model="sig_pref" type="text" style="width: 6em"/>
-        </div>
+        <b-input v-model="sig_pref" type="text" style="width: 6em"/>
+        </b-form>
       </b-col>
-      <b-col sm="4">
-        <div class="form-group">
+      <b-col cols="5">
+        <b-form inline>
         <label>Signature number:</label>
-        <input v-model.number="sig_num_min" type="number" style="width: 6em"/> - <input v-model.number="sig_num_max" type="number" style="width: 6em"/>
-        </div>
+        <b-input v-model.number="sig_num_min" type="number" style="width: 8em"/> - <b-input v-model.number="sig_num_max" type="number" style="width: 8em"/>
+        </b-form>
       </b-col>
-      <b-col sm="4">
-        <div class="form-group">
+      <b-col cols="3">
+        <b-form inline>
         <label>Year:</label>
-        <input v-model.number="from_year" type="number" style="width: 5em"/> - <input v-model.number="to_year" type="number" style="width: 5em"/>
-        </div>
+        <b-input v-model.number="from_year" type="number" style="width: 5em"/> - <b-input v-model.number="to_year" type="number" style="width: 5em"/>
+        </b-form>
       </b-col>
-      <b-col class="text-right" sm="1">
+      <b-col cols="1" class="text-right">
         <b-button @click="loadData">Load data</b-button>
       </b-col>
     </b-form-row>
