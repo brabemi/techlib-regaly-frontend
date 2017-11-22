@@ -1,10 +1,15 @@
 <template>
   <b-container fluid>
     <b-row>
+      <router-link :to="{ name: 'simulation-new' }">New</router-link>
+      <router-link :to="{ name: 'simulation-edit', params: { id: 'ba875b2a-08d1-469d-a412-c444855471af' }}">Simulation</router-link>
+      <router-link :to="{ name: 'simulation-edit', params: { id: 'ba875b2a-08d1-469d-a412-c444855471' }}">Bad-Simulation</router-link>
+    </b-row>
+    <!-- <b-row>
       <b-col xl="12">
         <h1>Table</h1>
       </b-col>
-    </b-row>
+    </b-row> -->
     <b-card no-body>
       <b-tabs pills card vertical>
         <b-tab title="Simulation" active>
@@ -81,6 +86,9 @@ export default {
       store: store,
     }
   },
+  // created: function() {
+  //   console.log(this.$route)
+  // },
   components: {
     SignatureLoader,
     SignatureTable,

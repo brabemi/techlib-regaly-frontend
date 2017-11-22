@@ -17,7 +17,7 @@
       <b-col xl="3" class="text-left">
       </b-col>
       <b-col xl="3" class="text-right">
-        <b-button variant="primary">Save simulation</b-button>
+        <b-button variant="primary" @click="saveSimulation">Save simulation</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -33,6 +33,9 @@ export default {
     }
   },
   methods: {
+    saveSimulation() {
+      store.dispatch('saveData')
+    }
   },
 }
 </script>

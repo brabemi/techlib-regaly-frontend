@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import binarySearch from 'binary-search'
 
+import router from '@/router'
+
 Vue.use(Vuex)
 
 var instance = axios.create({
@@ -11,6 +13,7 @@ var instance = axios.create({
 
 export default new Vuex.Store({
   state: {
+    id: '',
     shelfIndex: 0,
     shelfs: [],
     bookIndex: 0,
@@ -23,6 +26,13 @@ export default new Vuex.Store({
       shelf.index = state.shelfIndex
       state.shelfIndex += 1
       state.shelfs.push(shelf)
+    },
+    addShelfs(state, shelfs) {
+      shelfs.forEach(function(e) {
+        e.index = state.shelfIndex
+        state.shelfIndex += 1
+      })
+      state.shelfs = state.shelfs.concat(shelfs)
     },
     removeShelf(state, shelf) {
       var index = binarySearch(state.shelfs, shelf, function(a, b) { return a.index - b.index })
@@ -47,17 +57,52 @@ export default new Vuex.Store({
       state.books = []
       state.bookIndex = 0
     },
-
+    setName(state, name) {
+      state.name = name
+    },
+    setID(state, id) {
+      state.id = id
+    },
+    setVolumeWidth(state, volumeWidth) {
+      state.volumeWidth = volumeWidth
+    },
   },
   actions: {
     saveData() {
       var data = {
         shelfs: this.state.shelfs,
         books: this.state.books,
+        name: this.state.name,
+        volume_width: this.state.volumeWidth,
       }
-      instance.put('/simulation', data)
-      .then(r => console.log(r.status))
-      .catch(e => console.log(e))
+      if (this.state.id !== '') {
+        instance.post('/simulation/' + this.state.id, data)
+        .then(function(r) {
+          console.log(r)
+        })
+        .catch(e => console.log(e))
+      } else {
+        instance.put('/simulation', data)
+        .then(function(r) {
+          // console.log(router)
+          // console.log({ name: 'simulation-edit', params: { id: r.data } })
+          router.push({ name: 'simulation-edit', params: { id: r.data } })
+        })
+        .catch(e => console.log(e))
+      }
+    },
+    fetchData({ commit, dispatch }, id) {
+      instance.get('/simulation/' + id)
+        .then(function(response) {
+          commit('addBooks', response.data.books)
+          commit('addShelfs', response.data.shelfs)
+          commit('setName', response.data.name)
+          commit('setID', response.data.id)
+          commit('setVolumeWidth', response.data.volume_width)
+        })
+        .catch(function(error) {
+          console.log(error.message)
+        })
     },
   }
 })
