@@ -1,13 +1,13 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <b-col lg="9" class="text-left">
+      <b-col xl="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
           ' (approximately ' + Math.ceil(totalVolumes * simulationStore.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
         }}
       </b-col>
-      <b-col lg="3" class="text-right">
+      <b-col xl="3" class="text-right">
          <b-button variant="primary" @click="addBooksToSim">Add all</b-button>
       </b-col>
     </b-form-row>
@@ -24,15 +24,15 @@
       </template>
     </b-table>
     <b-row>
-      <b-col lg="4" class="text-left">
+      <b-col xl="4" class="text-left">
         <select v-model="perPage" class="button dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>
       </b-col>
-      <b-col lg="4" class="text-center">
+      <b-col xl="4" class="text-center">
       </b-col>
-      <b-col lg="4" class="text-right">
+      <b-col xl="4" class="text-right">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
       </b-col>
     </b-row>
