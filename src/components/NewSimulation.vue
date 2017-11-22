@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col cols="12">
+      <b-col lg="12">
         <h1>Table</h1>
       </b-col>
     </b-row>

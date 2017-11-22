@@ -1,9 +1,9 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <b-col cols="8" class="text-left">
+      <b-col lg="8" class="text-left">
       </b-col>
-      <b-col cols="4" class="text-right">
+      <b-col lg="4" class="text-right">
         <b-input-group>
           <b-input-group-addon>Floor</b-input-group-addon>
           <b-form-select v-model="floor" :options="options"/>
@@ -24,15 +24,15 @@
       </template>
     </b-table>
     <b-row>
-      <b-col cols="4" class="text-left">
+      <b-col lg="4" class="text-left">
         <select v-model="perPage" class="button dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>
       </b-col>
-      <b-col cols="4" class="text-center">
+      <b-col lg="4" class="text-center">
       </b-col>
-      <b-col cols="4" class="text-right">
+      <b-col lg="4" class="text-right">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
       </b-col>
     </b-row>
