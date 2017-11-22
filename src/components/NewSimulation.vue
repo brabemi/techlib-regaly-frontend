@@ -6,8 +6,12 @@
       </b-col>
     </b-row>
     <b-card no-body>
-      <b-tabs ref="tabs" card>
+      <b-tabs pills card vertical>
         <b-tab title="Simulation" active>
+          <b-row>
+            <simulation-control-row/>
+          </b-row>
+          <hr>
           <b-row>
             <b-col>
               <simulation-book-table/>
@@ -19,7 +23,6 @@
           <b-row>
             <b-container fluid>
               <b-col class="text-right">
-                <!-- <b-button @click="store.dispatch('saveData')">Save simulation</b-button> -->
               </b-col>
             </b-container>
           </b-row>
@@ -68,6 +71,7 @@ import SignatureLoader from '@/components/SignatureLoader'
 import SignatureTable from '@/components/SignatureTable'
 import SimulationBookTable from '@/components/SimulationBookTable'
 import SimulationShelfTable from '@/components/SimulationShelfTable'
+import SimulationControlRow from '@/components/SimulationControlRow'
 import ShelfTable from '@/components/ShelfTable'
 import SimulationVisualization from '@/components/SimulationVisualization'
 
@@ -84,6 +88,7 @@ export default {
     SimulationShelfTable,
     SimulationBookTable,
     SimulationVisualization,
+    SimulationControlRow,
   },
 }
 </script>

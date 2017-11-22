@@ -1,37 +1,31 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <!-- <b-col cols="3" class="text-left">
-        <input v-model="filter" placeholder="Type to Search" />
-      </b-col> -->
       <b-col cols="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
-          ' (approximately ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
+          ' (approximately ' + Math.ceil(totalVolumes * simulationStore.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
         }}
       </b-col>
       <b-col cols="3" class="text-right">
-         <b-button @click="addBooksToSim">Add all</b-button>
+         <b-button variant="primary" @click="addBooksToSim">Add all</b-button>
       </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
       :items="store.state.data"
       :fields="fields"
       :current-page="currentPage"
-      :per-page="perPage"
-      :sort-by.sync="sortBy"
-      :filter="filter"
-       @filtered="onFiltered">
+      :per-page="perPage">
       <template slot="signature_number" slot-scope="row">
         {{ row.item.signature }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-btn size="sm" @click.stop="store.commit('removeRow', row.item)">Remove</b-btn>
+        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
       </template>
     </b-table>
     <b-row>
       <b-col cols="4" class="text-left">
-        <select v-model="perPage" class="btn dropdown-toggle">
+        <select v-model="perPage" class="button dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>
@@ -53,6 +47,7 @@ export default {
   data() {
     return {
       store: store,
+      simulationStore: simulationStore,
       fields: {
         signature_number: { label: 'Signature', sortable: true },
         volumes_in_timerange: { label: 'Volumes', sortable: true },
@@ -60,7 +55,6 @@ export default {
       },
       currentPage: 1,
       perPage: 10,
-      totalRows: store.state.data.length,
       pageOpts: [
         { label: '5', value: 5 },
         { label: '10', value: 10 },
@@ -71,6 +65,9 @@ export default {
     }
   },
   computed: {
+    totalRows: function() {
+      return store.state.data.length
+    },
     totalVolumes: function() {
       var volumes = 0
       store.state.data.forEach(function(book) {
@@ -87,6 +84,9 @@ export default {
     addBooksToSim() {
       simulationStore.commit('addBooks', store.state.data)
       store.commit('clearData')
+    },
+    removeRow(book) {
+      store.commit('removeRow', book)
     },
   }
 }

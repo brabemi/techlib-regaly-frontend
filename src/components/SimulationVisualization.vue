@@ -9,20 +9,20 @@
       <p class="card-text">
         {{
           bookMap.unplaced.start.signature + ' - ' + bookMap.unplaced.end.signature +
-          ' (' +  Math.ceil(bookMap.unplaced.length).toLocaleString('cs-CZ') + ' cm)'
+          ' (' +  Math.ceil(bookMap.unplaced.length).toLocaleString('cs-CZ') + ' mm)'
          }}
       </p>
     </b-card>
     <b-card v-for="(shelf, index) in bookMap" :key="index"
       :header="
         (index + 1) + ': ' + shelf.shelf.name +
-        ' (' + shelf.shelf.levels + ' × ' + shelf.shelf.row_length.toLocaleString('cs-CZ') + ' cm)'
+        ' (' + shelf.shelf.levels + ' × ' + shelf.shelf.row_length.toLocaleString('cs-CZ') + ' mm)'
       "
       class="text-center my_card">
       <p v-for="(level, index) in shelf.books" :key="index" class="card-text">
         {{
           (level.start != null ? level.start.signature + ' - ' + level.end.signature : 'empty') +
-          ' (free ' + level.free.toLocaleString('cs-CZ') + ' cm)'
+          ' (free ' + level.free.toLocaleString('cs-CZ') + ' mm)'
         }}
       </p>
     </b-card>

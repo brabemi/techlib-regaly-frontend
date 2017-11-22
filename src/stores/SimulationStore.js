@@ -15,7 +15,8 @@ export default new Vuex.Store({
     shelfs: [],
     bookIndex: 0,
     books: [],
-    volumeWidth: 3.5,
+    volumeWidth: 35,
+    name: '',
   },
   mutations: {
     addShelf(state, shelf) {

@@ -1,18 +1,13 @@
 <template>
   <b-container fluid>
     <b-form-row>
-      <!-- <b-col cols="4" class="text-left">
-        <input v-model="filter" placeholder="Type to Search" />
-      </b-col> -->
-      <b-col cols="9" class="text-left">
+      <b-col cols="8" class="text-left">
       </b-col>
-      <b-col cols="3" class="text-right">
-        <label>Floor:</label>
-        <select v-model="floor" @change="changeFloor(floor)" class="btn dropdown-toggle">
-          <option v-for="floor in store.state.floors" :key="floor.id" :value="floor">
-            {{ floor.floor_name }}
-          </option>
-        </select>
+      <b-col cols="4" class="text-right">
+        <b-input-group>
+          <b-input-group-addon>Floor</b-input-group-addon>
+          <b-form-select v-model="floor" :options="options"/>
+        </b-input-group>
       </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
@@ -20,20 +15,17 @@
       :items="items"
       :current-page="currentPage"
       :per-page="perPage"
-      :fields="fields"
-      :filter="filter"
-       @filtered="onFiltered">
+      :fields="fields">
       <template slot="row_length" slot-scope="row">
-        {{ row.value + ' cm' }}
+        {{ row.value + ' mm' }}
       </template>
       <template slot="actions" slot-scope="row">
-        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-btn size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">Add</b-btn>
+        <b-button variant="primary" size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">Add</b-button>
       </template>
     </b-table>
     <b-row>
       <b-col cols="4" class="text-left">
-        <select v-model="perPage" class="btn dropdown-toggle">
+        <select v-model="perPage" class="button dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>
@@ -58,11 +50,8 @@ export default {
     return {
       store: store,
       floor: '',
-      items: [],
       currentPage: 1,
       perPage: 10,
-      totalRows: 0,
-      filter: '',
       pageOpts: [
         { label: '5', value: 5 },
         { label: '10', value: 10 },
@@ -71,21 +60,27 @@ export default {
       fields: {
         floor_name: { label: 'Floor' },
         name: { label: 'Name', sortable: true },
-        row_length: { label: 'Length in cm', sortable: true },
+        row_length: { label: 'Length in mm', sortable: true },
         levels: { label: 'Levels', sortable: true },
         actions: { label: 'Actions' },
-        // index: {},
       },
     }
+  },
+  computed: {
+    options: function() {
+      return store.state.floors.map(function(floor) { return { value: floor, text: floor.floor_name } })
+    },
+    items: function() {
+      return this.floor ? store.state.data[this.floor.id] : []
+    },
+    totalRows: function() {
+      return this.floor ? store.state.data[this.floor.id].length : 0
+    },
   },
   methods: {
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length
       this.currentPage = 1
-    },
-    changeFloor() {
-      this.items = store.state.data[this.floor.id]
-      this.totalRows = this.items.length
     },
     addShelfToSim(shelf) {
       shelf._used = true

@@ -2,25 +2,29 @@
   <b-container fluid>
     <b-form-row>
       <b-col cols="3">
-        <b-form inline>
-        <label>Signature prefix:</label>
-        <b-input v-model="sig_pref" type="text" style="width: 6em"/>
-        </b-form>
+        <b-input-group>
+          <b-input-group-addon>Signature prefix</b-input-group-addon>
+          <b-form-input v-model="sig_pref" type="text"></b-form-input>
+        </b-input-group>
       </b-col>
       <b-col cols="5">
-        <b-form inline>
-        <label>Signature number:</label>
-        <b-input v-model.number="sig_num_min" type="number" style="width: 8em"/> - <b-input v-model.number="sig_num_max" type="number" style="width: 8em"/>
-        </b-form>
+        <b-input-group>
+          <b-input-group-addon>Signature number</b-input-group-addon>
+          <b-form-input v-model.number="sig_num_min" type="number" min="0"></b-form-input>
+          <b-input-group-addon>-</b-input-group-addon>
+          <b-form-input v-model.number="sig_num_max" type="number" min="0"></b-form-input>
+        </b-input-group>
       </b-col>
       <b-col cols="3">
-        <b-form inline>
-        <label>Year:</label>
-        <b-input v-model.number="from_year" type="number" style="width: 5em"/> - <b-input v-model.number="to_year" type="number" style="width: 5em"/>
-        </b-form>
+        <b-input-group>
+          <b-input-group-addon>Year</b-input-group-addon>
+          <b-form-input v-model.number="from_year" type="number" min="0"></b-form-input>
+          <b-input-group-addon>-</b-input-group-addon>
+          <b-form-input v-model.number="to_year" type="number" min="0"></b-form-input>
+        </b-input-group>
       </b-col>
       <b-col cols="1" class="text-right">
-        <b-button @click="loadData">Load data</b-button>
+        <b-button variant="primary" @click="loadData">Load data</b-button>
       </b-col>
     </b-form-row>
   </b-container>

@@ -4,11 +4,11 @@
       <b-col cols="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
-          ' (cca ' + Math.ceil(totalVolumes * 3.5).toLocaleString('cs-CZ') + ' cm)'
+          ' (cca ' + Math.ceil(totalVolumes * store.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
         }}
       </b-col>
       <b-col cols="3" class="text-right">
-         <b-button @click="removeAll">Remove All</b-button>
+         <b-button variant="danger" @click="removeAll">Remove All</b-button>
       </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
@@ -20,12 +20,12 @@
         {{ row.item.signature }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-btn size="sm" @click.stop="removeRow(row.item)">Remove</b-btn>
+        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
       </template>
     </b-table>
     <b-row>
       <b-col cols="4" class="text-left">
-        <select v-model="perPage" class="btn dropdown-toggle">
+        <select v-model="perPage" class="button dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>

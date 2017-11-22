@@ -4,11 +4,11 @@
       <b-col cols="9" class="text-left">
         {{
           'Total length: ' + totalLength.toLocaleString('cs-CZ') +
-          ' cm (cca ' + Math.floor(totalLength / 3.5).toLocaleString('cs-CZ') + ' volumes)'
+          ' mm (cca ' + Math.floor(1.0 * totalLength / store.state.volumeWidth).toLocaleString('cs-CZ') + ' volumes)'
         }}
       </b-col>
       <b-col cols="3" class="text-right">
-        <b-button @click="removeAll">Remove All</b-button>
+        <b-button variant="danger" @click="removeAll">Remove All</b-button>
       </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
@@ -17,15 +17,15 @@
       :current-page="currentPage"
       :per-page="perPage">
       <template slot="row_length" slot-scope="row">
-        {{ row.value + ' cm' }}
+        {{ row.value + ' mm' }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-btn size="sm" @click.stop="removeRow(row.item)">Remove</b-btn>
+        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
       </template>
     </b-table>
     <b-row>
       <b-col cols="4" class="text-left">
-        <select v-model="perPage" class="btn dropdown-toggle">
+        <select v-model="perPage" class="button dropdown-toggle">
           <option v-for="po in pageOpts" :key="po.value" :value="po.value">{{ po.label }}</option>
         </select>
         <span>per page</span>
@@ -43,8 +43,6 @@
 import store from '@/stores/SimulationStore'
 import shelfStore from '@/stores/ShelfStore'
 
-// store.dispatch('fetchData')
-
 export default {
   data() {
     return {
@@ -60,7 +58,7 @@ export default {
       fields: {
         floor_name: { label: 'Floor' },
         name: { label: 'Name', sortable: false },
-        row_length: { label: 'Length in cm', sortable: false },
+        row_length: { label: 'Length in mm', sortable: false },
         levels: { label: 'Levels', sortable: false },
         actions: { label: 'Actions' },
       },
