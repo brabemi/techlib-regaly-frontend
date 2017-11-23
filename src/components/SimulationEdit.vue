@@ -13,8 +13,8 @@ export default {
       store: store,
     }
   },
-  created: function() {
-    store.dispatch('fetchData', this.$route.params.id)
+  mounted: function() {
+    store.dispatch('fetchSimulation', this.$route.params.id)
     // console.log(this.$route.params.id)
   },
   components: {

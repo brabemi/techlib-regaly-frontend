@@ -20,6 +20,7 @@ export default new Vuex.Store({
     books: [],
     volumeWidth: 35,
     name: '',
+    simulations: [],
   },
   mutations: {
     addShelf(state, shelf) {
@@ -66,6 +67,18 @@ export default new Vuex.Store({
     setVolumeWidth(state, volumeWidth) {
       state.volumeWidth = volumeWidth
     },
+    setSimulations(state, simulations) {
+      state.simulations = simulations
+    },
+    cleanSimulation(state) {
+      state.id = ''
+      state.shelfIndex = 0
+      state.shelfs = []
+      state.bookIndex = 0
+      state.books = []
+      state.volumeWidth = 35
+      state.name = ''
+    },
   },
   actions: {
     saveData() {
@@ -77,21 +90,19 @@ export default new Vuex.Store({
       }
       if (this.state.id !== '') {
         instance.post('/simulation/' + this.state.id, data)
-        .then(function(r) {
-          console.log(r)
-        })
-        .catch(e => console.log(e))
+          .then(function(r) {
+            console.log(r)
+          })
+          .catch(e => console.log(e))
       } else {
         instance.put('/simulation', data)
-        .then(function(r) {
-          // console.log(router)
-          // console.log({ name: 'simulation-edit', params: { id: r.data } })
-          router.push({ name: 'simulation-edit', params: { id: r.data } })
-        })
-        .catch(e => console.log(e))
+          .then(function(r) {
+            router.push({ name: 'simulation-edit', params: { id: r.data } })
+          })
+          .catch(e => console.log(e))
       }
     },
-    fetchData({ commit, dispatch }, id) {
+    fetchSimulation({ commit, dispatch }, id) {
       instance.get('/simulation/' + id)
         .then(function(response) {
           commit('addBooks', response.data.books)
@@ -104,5 +115,14 @@ export default new Vuex.Store({
           console.log(error.message)
         })
     },
+    fetchSimulations({ commit, dispatch }) {
+      instance.get('/simulation/')
+        .then(function(response) {
+          commit('setSimulations', response.data)
+        })
+        .catch(function(error) {
+          console.log(error.message)
+        })
+    }
   }
 })
