@@ -3,10 +3,9 @@
     <b-card no-body>
       <b-tabs pills card vertical>
         <b-tab title="Simulation" active>
-          <b-row>
+          <b-row class="mb-2">
             <simulation-control-row/>
           </b-row>
-          <hr>
           <b-row>
             <b-col>
               <simulation-book-table/>
@@ -23,12 +22,9 @@
           </b-row>
         </b-tab>
         <b-tab title="Books">
-          <b-row>
-            <b-col>
-              <signature-loader/>
-            </b-col>
+          <b-row class="mb-2">
+            <signature-loader/>
           </b-row>
-          <hr>
           <b-row>
             <b-col>
               <simulation-book-table/>

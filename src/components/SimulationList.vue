@@ -1,11 +1,11 @@
 <template>
   <b-container fluid>
-    <b-row>
-      <b-col cols="6" class="text-left">
+    <b-row class="mt-2 mb-2">
+      <b-col xl="6" class="text-left">
       </b-col>
-      <b-col cols="6" class="text-right">
+      <b-col xl="6" class="text-right pr-0">
         <router-link :to="{ name: 'simulation-new' }">
-          <b-button variant="success" size="sm">New simulation</b-button>
+          <b-button variant="success">New simulation</b-button>
         </router-link>
       </b-col>
     </b-row>

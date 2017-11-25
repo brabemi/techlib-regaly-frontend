@@ -1,6 +1,6 @@
 <template>
-  <b-container fluid>
-    <b-row>
+  <b-container fluid class="rounded border border-info">
+    <b-row class="mt-2 mb-2">
       <b-col xl="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
@@ -8,7 +8,7 @@
         }}
       </b-col>
       <b-col xl="3" class="text-right">
-         <b-button variant="danger" @click="removeAll">Remove All</b-button>
+         <b-button variant="danger" @click="removeAll" size="sm">Remove All</b-button>
       </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
@@ -33,7 +33,7 @@
       <b-col xl="4" class="text-center">
       </b-col>
       <b-col xl="4" class="text-right">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" size="sm"/>
       </b-col>
     </b-row>
   </b-container>
@@ -55,9 +55,9 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        signature_number: { label: 'Signature', sortable: false },
-        volumes_in_timerange: { label: 'Volumes', sortable: false },
-        actions: { label: 'Actions' }
+        signature_number: { label: 'Signature', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
+        volumes_in_timerange: { label: 'Volumes', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
+        actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' }
       },
     }
   },

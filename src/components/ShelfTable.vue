@@ -1,6 +1,6 @@
 <template>
-  <b-container fluid>
-    <b-form-row>
+  <b-container fluid class="rounded border border-light">
+    <b-form-row class="mt-2 mb-2">
       <b-col xl="8" class="text-left">
       </b-col>
       <b-col xl="4" class="text-right">
@@ -20,7 +20,7 @@
         {{ row.value + ' mm' }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-button variant="primary" size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">Add</b-button>
+        <b-button :variant="row.item._used ? 'secondary' : 'primary'" size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">Add</b-button>
       </template>
     </b-table>
     <b-row>
@@ -33,7 +33,7 @@
       <b-col xl="4" class="text-center">
       </b-col>
       <b-col xl="4" class="text-right">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" size="sm"/>
       </b-col>
     </b-row>
   </b-container>
@@ -55,11 +55,11 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        floor_name: { label: 'Floor' },
-        name: { label: 'Name', sortable: true },
-        row_length: { label: 'Length in mm', sortable: true },
-        levels: { label: 'Levels', sortable: true },
-        actions: { label: 'Actions' },
+        floor_name: { label: 'Floor', tdClass: 'align-middle pt-1 pb-1' },
+        name: { label: 'Name', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
+        row_length: { label: 'Length in mm', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
+        levels: { label: 'Levels', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
+        actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' },
       },
     }
   },

@@ -1,6 +1,6 @@
 <template>
-  <b-container fluid>
-    <b-row>
+  <b-container fluid class="rounded border border-info">
+    <b-row class="mt-2 mb-2">
       <b-col xl="9" class="text-left">
         {{
           'Total length: ' + totalLength.toLocaleString('cs-CZ') +
@@ -8,7 +8,7 @@
         }}
       </b-col>
       <b-col xl="3" class="text-right">
-        <b-button variant="danger" @click="removeAll">Remove All</b-button>
+        <b-button variant="danger" @click="removeAll" size="sm">Remove All</b-button>
       </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
@@ -33,7 +33,7 @@
       <b-col xl="4" class="text-center">
      </b-col>
       <b-col xl="4" class="text-right">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" size="sm"/>
       </b-col>
     </b-row>
   </b-container>
@@ -55,11 +55,11 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        floor_name: { label: 'Floor' },
-        name: { label: 'Name', sortable: false },
-        row_length: { label: 'Length in mm', sortable: false },
-        levels: { label: 'Levels', sortable: false },
-        actions: { label: 'Actions' },
+        floor_name: { label: 'Floor', tdClass: 'align-middle pt-1 pb-1' },
+        name: { label: 'Name', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
+        row_length: { label: 'Length in mm', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
+        levels: { label: 'Levels', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
+        actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' },
       },
     }
   },

@@ -1,14 +1,14 @@
 <template>
-  <b-container fluid>
-    <b-form-row>
+  <b-container fluid class="rounded border border-light">
+    <b-form-row class="mt-2 mb-2">
       <b-col xl="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
-          ' (approximately ' + Math.ceil(totalVolumes * simulationStore.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
+          ' (cca ' + Math.ceil(totalVolumes * simulationStore.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
         }}
       </b-col>
       <b-col xl="3" class="text-right">
-         <b-button variant="primary" @click="addBooksToSim">Add all</b-button>
+         <b-button variant="primary" @click="addBooksToSim" size="sm">Add all</b-button>
       </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
@@ -33,7 +33,7 @@
       <b-col xl="4" class="text-center">
       </b-col>
       <b-col xl="4" class="text-right">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" />
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" size="sm"/>
       </b-col>
     </b-row>
   </b-container>
@@ -49,9 +49,9 @@ export default {
       store: store,
       simulationStore: simulationStore,
       fields: {
-        signature_number: { label: 'Signature', sortable: true },
-        volumes_in_timerange: { label: 'Volumes', sortable: true },
-        actions: { label: 'Actions' }
+        signature_number: { label: 'Signature', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
+        volumes_in_timerange: { label: 'Volumes', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
+        actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' }
       },
       currentPage: 1,
       perPage: 10,

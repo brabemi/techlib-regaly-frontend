@@ -1,15 +1,16 @@
 <template>
   <b-container fluid>
-    <b-form-row>
+    <!-- <b-form-row> -->
+    <b-row>
       <b-col xl="3">
         <b-input-group>
-          <b-input-group-addon>Signature prefix</b-input-group-addon>
+          <b-input-group-addon>Prefix</b-input-group-addon>
           <b-form-input v-model="sig_pref" type="text"></b-form-input>
         </b-input-group>
       </b-col>
-      <b-col xl="5">
+      <b-col xl="4">
         <b-input-group>
-          <b-input-group-addon>Signature number</b-input-group-addon>
+          <b-input-group-addon>Number</b-input-group-addon>
           <b-form-input v-model.number="sig_num_min" type="number" min="0"></b-form-input>
           <b-input-group-addon>-</b-input-group-addon>
           <b-form-input v-model.number="sig_num_max" type="number" min="0"></b-form-input>
@@ -23,10 +24,11 @@
           <b-form-input v-model.number="to_year" type="number" min="0"></b-form-input>
         </b-input-group>
       </b-col>
-      <b-col xl="1" class="text-right">
+      <b-col xl="2" class="text-right">
         <b-button variant="primary" @click="loadData">Load data</b-button>
       </b-col>
-    </b-form-row>
+    </b-row>
+    <!-- </b-form-row> -->
   </b-container>
 </template>
 
