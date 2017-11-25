@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted: function() {
-    store.commit('cleanSimulation')
+    store.dispatch('initClear')
   },
   components: {
     Simulation,

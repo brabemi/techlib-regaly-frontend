@@ -41,7 +41,6 @@
 
 <script>
 import store from '@/stores/SimulationStore'
-import shelfStore from '@/stores/ShelfStore'
 
 export default {
   data() {
@@ -83,11 +82,11 @@ export default {
     },
     removeRow(shelf) {
       store.commit('removeShelf', shelf)
-      shelfStore.commit('unusedShelf', shelf)
+      store.commit('unusedShelf', shelf)
     },
     removeAll(shelf) {
       store.state.shelfs.forEach(function(shelf) {
-        shelfStore.commit('unusedShelf', shelf)
+        store.commit('unusedShelf', shelf)
       })
       store.commit('removeAllShelfs')
     },

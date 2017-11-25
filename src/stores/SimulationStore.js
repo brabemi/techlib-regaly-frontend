@@ -21,12 +21,15 @@ export default new Vuex.Store({
     volumeWidth: 35,
     name: '',
     simulations: [],
+    floors: [],
+    floor_shelfs: { '': [] },
   },
   mutations: {
     addShelf(state, shelf) {
       shelf.index = state.shelfIndex
       state.shelfIndex += 1
       state.shelfs.push(shelf)
+      console.log(state.shelfs)
     },
     addShelfs(state, shelfs) {
       shelfs.forEach(function(e) {
@@ -90,18 +93,47 @@ export default new Vuex.Store({
         state.simulations.splice(i, 1)
       }
     },
-
+    setFloors(state, floors) {
+      state.floors = floors
+      state.floors.forEach(function(e) {
+        e.floor_name = Math.abs(e.floor).toString() + (e.floor < 0 ? 'PP' : 'NP')
+      })
+    },
+    setFloor(state, data) {
+      state.floor_shelfs[data.floor.id] = data.shelfrows
+      state.floor_shelfs[data.floor.id].forEach(function(e) {
+        e.floor_name = data.floor.floor_name
+        e._used = false
+      })
+    },
+    unusedShelf(state, shelf) {
+      var element = state.floor_shelfs[shelf.floor_id].find(function(e) { return e.id === shelf.id })
+      if (element) {
+        element._used = false
+      }
+    },
+    markUsedShelfsInFloor(state, floor) {
+      var usedShelfs = new Set(state.shelfs.map(e => e.id))
+      state.floor_shelfs[floor.id].forEach(function(e) {
+        if (usedShelfs.has(e.id)) {
+          e._used = true
+        } else {
+          e._used = false
+        }
+      })
+    },
   },
   actions: {
-    saveSimulation() {
+    saveSimulation({ state }) {
       var data = {
-        shelfs: this.state.shelfs,
-        books: this.state.books,
-        name: this.state.name,
-        volume_width: this.state.volumeWidth,
+        shelfs: state.shelfs,
+        books: state.books,
+        name: state.name,
+        volume_width: state.volumeWidth,
       }
-      if (this.state.id !== '') {
-        instance.post('/simulation/' + this.state.id, data)
+      console.log(state.shelfs)
+      if (state.id !== '') {
+        instance.post('/simulation/' + state.id, data)
           .then(function(r) {
             console.log(r)
           })
@@ -115,6 +147,7 @@ export default new Vuex.Store({
       }
     },
     fetchSimulation({ commit, dispatch }, id) {
+      commit('cleanSimulation')
       instance.get('/simulation/' + id)
         .then(function(response) {
           commit('addBooks', response.data.books)
@@ -122,6 +155,7 @@ export default new Vuex.Store({
           commit('setName', response.data.name)
           commit('setID', response.data.id)
           commit('setVolumeWidth', response.data.volume_width)
+          dispatch('fetchFloors')
         })
         .catch(function(error) {
           console.log(error.message)
@@ -144,6 +178,32 @@ export default new Vuex.Store({
         .catch(function(error) {
           console.log(error.message)
         })
-    }
+    },
+    fetchFloors({ commit, dispatch, state }) {
+      instance.get('/floor')
+        .then(function(response) {
+          commit('setFloors', response.data)
+          state.floors.forEach(function(floor) {
+            dispatch('fetchFloor', floor)
+          })
+        })
+        .catch(function(error) {
+          console.log(error.message)
+        })
+    },
+    fetchFloor({ commit }, floor) {
+      instance.get('/floor/' + floor.id + '/shelfrows')
+        .then(function(response) {
+          commit('setFloor', { floor: floor, shelfrows: response.data })
+          commit('markUsedShelfsInFloor', floor)
+        })
+        .catch(function(error) {
+          console.log(error.message)
+        })
+    },
+    initClear({ commit, dispatch }) {
+      commit('cleanSimulation')
+      dispatch('fetchFloors')
+    },
   }
 })

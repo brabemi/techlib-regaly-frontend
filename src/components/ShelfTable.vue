@@ -40,10 +40,8 @@
 </template>
 
 <script>
-import store from '@/stores/ShelfStore'
-import simulationStore from '@/stores/SimulationStore'
-
-store.dispatch('fetchData')
+// import store from '@/stores/ShelfStore'
+import store from '@/stores/SimulationStore'
 
 export default {
   data() {
@@ -66,15 +64,18 @@ export default {
       },
     }
   },
+  // mounted: function() {
+  //   store.dispatch('fetchFloors')
+  // },
   computed: {
     options: function() {
       return store.state.floors.map(function(floor) { return { value: floor, text: floor.floor_name } })
     },
     items: function() {
-      return this.floor ? store.state.data[this.floor.id] : []
+      return this.floor ? store.state.floor_shelfs[this.floor.id] : []
     },
     totalRows: function() {
-      return this.floor ? store.state.data[this.floor.id].length : 0
+      return this.floor ? store.state.floor_shelfs[this.floor.id].length : 0
     },
   },
   methods: {
@@ -85,7 +86,7 @@ export default {
     addShelfToSim(shelf) {
       shelf._used = true
       var tmpShelf = JSON.parse(JSON.stringify(shelf))
-      simulationStore.commit('addShelf', tmpShelf)
+      store.commit('addShelf', tmpShelf)
     },
   },
 }
