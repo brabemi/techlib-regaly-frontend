@@ -79,9 +79,21 @@ export default new Vuex.Store({
       state.volumeWidth = 35
       state.name = ''
     },
+    removeSimulation(state, id) {
+      var i = 0
+      for (i = 0; i < state.simulations.length; i++) {
+        if (state.simulations[i].id === id) {
+          break
+        }
+      }
+      if (i < state.simulations.length) {
+        state.simulations.splice(i, 1)
+      }
+    },
+
   },
   actions: {
-    saveData() {
+    saveSimulation() {
       var data = {
         shelfs: this.state.shelfs,
         books: this.state.books,
@@ -119,6 +131,15 @@ export default new Vuex.Store({
       instance.get('/simulation/')
         .then(function(response) {
           commit('setSimulations', response.data)
+        })
+        .catch(function(error) {
+          console.log(error.message)
+        })
+    },
+    deleteSimulation({ commit, dispatch }, id) {
+      instance.delete('/simulation/' + id)
+        .then(function(response) {
+          commit('removeSimulation', id)
         })
         .catch(function(error) {
           console.log(error.message)

@@ -22,8 +22,10 @@
           </router-link>
         </template>
         <template slot="actions" slot-scope="row">
-          <b-button variant="primary" size="sm" @click.stop="">Edit</b-button>
-          <b-button variant="danger" size="sm" @click.stop="">Remove</b-button>
+          <router-link :to="{ name: 'simulation-edit', params: { id: row.item.id } }">
+            <b-button variant="primary" size="sm">Edit</b-button>
+          </router-link>
+          <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
         </template>
       </b-table>
     </b-row>
@@ -69,5 +71,10 @@ export default {
   mounted: function() {
     store.dispatch('fetchSimulations')
   },
+  methods: {
+    removeRow(simulation) {
+      store.dispatch('deleteSimulation', simulation.id)
+    },
+  }
 }
 </script>

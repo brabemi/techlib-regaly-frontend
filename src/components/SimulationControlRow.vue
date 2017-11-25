@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     saveSimulation() {
-      store.dispatch('saveData')
+      store.dispatch('saveSimulation')
     }
   },
 }
