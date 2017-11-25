@@ -26,7 +26,8 @@ function processData(row, fromYear, toYear) {
 
 export default new Vuex.Store({
   state: {
-    data: []
+    data: [],
+    prefixes: [],
   },
   mutations: {
     updateSavedData(state, data) {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     },
     clearData(state) {
       state.data = []
+    },
+    setPrefixes(state, prefixes) {
+      state.prefixes = prefixes
     }
   },
   actions: {
@@ -63,6 +67,13 @@ export default new Vuex.Store({
       .catch(function(error) {
         console.log(error.message)
       })
+    },
+    fetchPrefixes({ commit }) {
+      instance.get('/signature/prefixes')
+        .then(function(r) {
+          commit('setPrefixes', r.data)
+        })
+        .catch(e => console.log(e))
     }
   }
 })

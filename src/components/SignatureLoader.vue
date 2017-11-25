@@ -1,11 +1,10 @@
 <template>
   <b-container fluid>
-    <!-- <b-form-row> -->
-    <b-row>
-      <b-col xl="3">
+    <b-form-row>
+      <b-col xl="2">
         <b-input-group>
           <b-input-group-addon>Prefix</b-input-group-addon>
-          <b-form-input v-model="sig_pref" type="text"></b-form-input>
+          <b-form-select v-model="sig_pref" :options="options"/>
         </b-input-group>
       </b-col>
       <b-col xl="4">
@@ -16,7 +15,7 @@
           <b-form-input v-model.number="sig_num_max" type="number" min="0"></b-form-input>
         </b-input-group>
       </b-col>
-      <b-col xl="3">
+      <b-col xl="4">
         <b-input-group>
           <b-input-group-addon>Year</b-input-group-addon>
           <b-form-input v-model.number="from_year" type="number" min="0"></b-form-input>
@@ -27,8 +26,7 @@
       <b-col xl="2" class="text-right">
         <b-button variant="primary" @click="loadData">Load data</b-button>
       </b-col>
-    </b-row>
-    <!-- </b-form-row> -->
+    </b-form-row>
   </b-container>
 </template>
 
@@ -45,6 +43,18 @@ export default {
       from_year: '',
       to_year: ''
     }
+  },
+  computed: {
+    options: function() {
+      var options = [{ value: '', text: '' }]
+      options = options.concat(store.state.prefixes.map(function(prefix) {
+        return { value: prefix, text: prefix }
+      }))
+      return options
+    },
+  },
+  mounted: function() {
+    store.dispatch('fetchPrefixes')
   },
   methods: {
     loadData() {
