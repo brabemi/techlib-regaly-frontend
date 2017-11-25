@@ -1,15 +1,5 @@
 <template>
   <b-container fluid>
-    <b-row>
-      <router-link :to="{ name: 'simulation-new' }">New</router-link>
-      <router-link :to="{ name: 'simulation-edit', params: { id: 'b7800e62-09e4-472c-8473-90f65f78b72e' }}">Simulation</router-link>
-      <router-link :to="{ name: 'simulation-edit', params: { id: 'ba875b2a-08d1-469d-a412-c444855471' }}">Bad-Simulation</router-link>
-    </b-row>
-    <!-- <b-row>
-      <b-col xl="12">
-        <h1>Table</h1>
-      </b-col>
-    </b-row> -->
     <b-card no-body>
       <b-tabs pills card vertical>
         <b-tab title="Simulation" active>
