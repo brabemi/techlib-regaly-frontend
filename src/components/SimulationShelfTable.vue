@@ -71,6 +71,7 @@ export default {
       var length = 0
       store.state.shelfs.forEach(function(shelf) {
         length += shelf.row_length * shelf.levels
+        length -= store.state.volumeWidth * shelf.levels * shelf.segment_lengths.length
       })
       return length
     },

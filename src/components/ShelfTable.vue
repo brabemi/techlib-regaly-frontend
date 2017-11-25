@@ -40,7 +40,6 @@
 </template>
 
 <script>
-// import store from '@/stores/ShelfStore'
 import store from '@/stores/SimulationStore'
 
 export default {
@@ -64,9 +63,6 @@ export default {
       },
     }
   },
-  // mounted: function() {
-  //   store.dispatch('fetchFloors')
-  // },
   computed: {
     options: function() {
       return store.state.floors.map(function(floor) { return { value: floor, text: floor.floor_name } })

@@ -131,11 +131,10 @@ export default new Vuex.Store({
         name: state.name,
         volume_width: state.volumeWidth,
       }
-      console.log(state.shelfs)
       if (state.id !== '') {
         instance.post('/simulation/' + state.id, data)
           .then(function(r) {
-            console.log(r)
+            // console.log(r)
           })
           .catch(e => console.log(e))
       } else {
