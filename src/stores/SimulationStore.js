@@ -20,6 +20,7 @@ export default new Vuex.Store({
     books: [],
     volumeWidth: 35,
     name: '',
+    description: '',
     simulations: [],
     floors: [],
     floor_shelfs: { '': [] },
@@ -69,6 +70,9 @@ export default new Vuex.Store({
     setVolumeWidth(state, volumeWidth) {
       state.volumeWidth = volumeWidth
     },
+    setDescription(state, description) {
+      state.description = description
+    },
     setSimulations(state, simulations) {
       state.simulations = simulations
     },
@@ -80,6 +84,7 @@ export default new Vuex.Store({
       state.books = []
       state.volumeWidth = 35
       state.name = ''
+      state.description = ''
     },
     removeSimulation(state, id) {
       var i = 0
@@ -129,6 +134,7 @@ export default new Vuex.Store({
         books: state.books,
         name: state.name,
         volume_width: state.volumeWidth,
+        description: state.description,
       }
       if (state.id !== '') {
         instance.post('/simulation/' + state.id, data)
@@ -153,6 +159,7 @@ export default new Vuex.Store({
           commit('setName', response.data.name)
           commit('setID', response.data.id)
           commit('setVolumeWidth', response.data.volume_width)
+          commit('setDescription', response.data.description)
           dispatch('fetchFloors')
         })
         .catch(function(error) {

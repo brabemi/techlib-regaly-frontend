@@ -15,10 +15,9 @@
             </b-col>
           </b-row>
           <b-row>
-            <b-container fluid>
-              <b-col class="text-right">
-              </b-col>
-            </b-container>
+            <b-col>
+              <simulation-description-view/>
+            </b-col>
           </b-row>
         </b-tab>
         <b-tab title="Books">
@@ -44,6 +43,13 @@
             </b-col>
           </b-row>
         </b-tab>
+        <b-tab title="Description">
+          <b-row>
+            <b-col>
+              <simulation-description/>
+            </b-col>
+          </b-row>
+        </b-tab>
         <b-tab title="Visualization">
           <b-row>
             <b-col>
@@ -65,6 +71,8 @@ import SimulationShelfTable from '@/components/SimulationShelfTable'
 import SimulationControlRow from '@/components/SimulationControlRow'
 import ShelfTable from '@/components/ShelfTable'
 import SimulationVisualization from '@/components/SimulationVisualization'
+import SimulationDescriptionView from '@/components/SimulationDescriptionView'
+import SimulationDescription from '@/components/SimulationDescription'
 
 export default {
   data() {
@@ -80,6 +88,8 @@ export default {
     SimulationBookTable,
     SimulationVisualization,
     SimulationControlRow,
+    SimulationDescriptionView,
+    SimulationDescription,
   },
 }
 </script>
