@@ -55,7 +55,7 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        floor_name: { label: 'Floor', tdClass: 'align-middle pt-1 pb-1' },
+        floor_name: { label: 'Floor section', tdClass: 'align-middle pt-1 pb-1' },
         name: { label: 'Name', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         row_length: { label: 'Length in mm', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         levels: { label: 'Levels', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     options: function() {
-      return store.state.floors.map(function(floor) { return { value: floor, text: floor.floor_name } })
+      return store.state.floors.map(function(floor) { return { value: floor, text: floor.name } })
     },
     items: function() {
       return this.floor ? store.state.floor_shelfs[this.floor.id] : []

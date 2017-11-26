@@ -29,7 +29,6 @@ export default new Vuex.Store({
       shelf.index = state.shelfIndex
       state.shelfIndex += 1
       state.shelfs.push(shelf)
-      console.log(state.shelfs)
     },
     addShelfs(state, shelfs) {
       shelfs.forEach(function(e) {
@@ -95,19 +94,19 @@ export default new Vuex.Store({
     },
     setFloors(state, floors) {
       state.floors = floors
-      state.floors.forEach(function(e) {
-        e.floor_name = Math.abs(e.floor).toString() + (e.floor < 0 ? 'PP' : 'NP')
-      })
+      // state.floors.forEach(function(e) {
+      //   e.floor_name = Math.abs(e.floor).toString() + (e.floor < 0 ? 'PP' : 'NP')
+      // })
     },
     setFloor(state, data) {
       state.floor_shelfs[data.floor.id] = data.shelfrows
       state.floor_shelfs[data.floor.id].forEach(function(e) {
-        e.floor_name = data.floor.floor_name
+        e.floor_name = data.floor.name
         e._used = false
       })
     },
     unusedShelf(state, shelf) {
-      var element = state.floor_shelfs[shelf.floor_id].find(function(e) { return e.id === shelf.id })
+      var element = state.floor_shelfs[shelf.floor_section_id].find(function(e) { return e.id === shelf.id })
       if (element) {
         element._used = false
       }
@@ -179,7 +178,7 @@ export default new Vuex.Store({
         })
     },
     fetchFloors({ commit, dispatch, state }) {
-      instance.get('/floor')
+      instance.get('/floorsection')
         .then(function(response) {
           commit('setFloors', response.data)
           state.floors.forEach(function(floor) {
@@ -191,7 +190,7 @@ export default new Vuex.Store({
         })
     },
     fetchFloor({ commit }, floor) {
-      instance.get('/floor/' + floor.id + '/shelfrows')
+      instance.get('/floorsection/' + floor.id + '/shelfrows')
         .then(function(response) {
           commit('setFloor', { floor: floor, shelfrows: response.data })
           commit('markUsedShelfsInFloor', floor)

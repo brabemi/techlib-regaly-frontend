@@ -55,7 +55,7 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
-        floor_name: { label: 'Floor', tdClass: 'align-middle pt-1 pb-1' },
+        floor_name: { label: 'Floor section', tdClass: 'align-middle pt-1 pb-1' },
         name: { label: 'Name', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
         row_length: { label: 'Length in mm', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
         levels: { label: 'Levels', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
