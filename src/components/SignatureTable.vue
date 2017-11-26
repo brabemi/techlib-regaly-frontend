@@ -1,5 +1,15 @@
 <template>
   <b-container fluid class="rounded border border-light">
+    <div>
+      <b-modal ref="modDupSig" title="Duplicit signatures" @ok="modalHandleOk">
+        <p>
+          {{ duplicitBooks.map(e => e.signature).join(', ') }}
+        </p>
+        <p>
+          Do you want add books to simulation?
+        </p>
+      </b-modal>
+    </div>
     <b-form-row class="mt-2 mb-2">
       <b-col xl="9" class="text-left">
         {{
@@ -8,7 +18,7 @@
         }}
       </b-col>
       <b-col xl="3" class="text-right">
-         <b-button variant="primary" @click="addBooksToSim" size="sm">Add all</b-button>
+         <b-button variant="primary" @click="addAll" size="sm">Add all</b-button>
       </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
@@ -62,6 +72,7 @@ export default {
       ],
       filter: '',
       sortBy: null,
+      duplicitBooks: [],
     }
   },
   computed: {
@@ -87,6 +98,18 @@ export default {
     },
     removeRow(book) {
       store.commit('removeRow', book)
+    },
+    addAll() {
+      var storeBooks = new Set(simulationStore.state.books.map(e => e.signature))
+      this.duplicitBooks = store.state.data.filter(e => storeBooks.has(e.signature))
+      if (this.duplicitBooks.length > 0) {
+        this.$refs.modDupSig.show()
+      } else {
+        this.addBooksToSim()
+      }
+    },
+    modalHandleOk(env) {
+      this.addBooksToSim()
     },
   }
 }
