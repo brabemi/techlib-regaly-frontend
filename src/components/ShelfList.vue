@@ -1,9 +1,9 @@
 <template>
   <b-container fluid class="rounded border border-light">
     <b-form-row class="mt-2 mb-2">
-      <b-col xl="6" class="text-left">
+      <b-col xl="8" class="text-left">
       </b-col>
-      <b-col xl="6" class="text-right">
+      <b-col xl="4" class="text-right">
         <b-input-group>
           <b-input-group-addon>Floor</b-input-group-addon>
           <b-form-select v-model="floor" :options="options"/>
@@ -20,9 +20,8 @@
         {{ row.value + ' mm' }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-button :variant="row.item._used ? 'secondary' : 'success'" size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">
-          <span class="fa fa-plus"/>
-        </b-button>
+        <b-button v-if="row.item.enabled" variant="danger" size="sm" @click.stop="shelfDisable(row.item)">Disable</b-button>
+        <b-button v-else variant="success" size="sm" @click.stop="shelfEnable(row.item)">Enable</b-button>
       </template>
     </b-table>
     <b-row>
@@ -35,14 +34,14 @@
       <b-col xl="4" class="text-center">
       </b-col>
       <b-col xl="4" class="text-right">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right" size="sm"/>
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" align="right"/>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import store from '@/stores/SimulationStore'
+import store from '@/stores/ShelfStore'
 
 export default {
   data() {
@@ -57,12 +56,16 @@ export default {
         { label: '20', value: 20 }
       ],
       fields: {
+        // floor_name: { label: 'Floor section', tdClass: 'align-middle pt-1 pb-1' },
         name: { label: 'Name', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         row_length: { label: 'Length in mm', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         levels: { label: 'Levels', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' },
       },
     }
+  },
+  mounted: function() {
+    store.dispatch('fetchFloors')
   },
   computed: {
     options: function() {
@@ -76,15 +79,12 @@ export default {
     },
   },
   methods: {
-    onFiltered(filteredItems) {
-      this.totalRows = filteredItems.length
-      this.currentPage = 1
+    shelfEnable(shelf) {
+      store.dispatch('shelfEnable', shelf)
     },
-    addShelfToSim(shelf) {
-      shelf._used = true
-      var tmpShelf = JSON.parse(JSON.stringify(shelf))
-      store.commit('addShelf', tmpShelf)
-    },
+    shelfDisable(shelf) {
+      store.dispatch('shelfDisable', shelf)
+    }
   },
 }
 </script>

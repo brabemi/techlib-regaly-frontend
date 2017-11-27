@@ -227,7 +227,7 @@ export default new Vuex.Store({
         })
     },
     fetchFloor({ commit }, floor) {
-      instance.get('/floorsection/' + floor.id + '/shelfrows')
+      instance.get('/floorsection/' + floor.id + '/shelfrows/enabled')
         .then(function(response) {
           commit('setFloor', { floor: floor, shelfrows: response.data })
           commit('markUsedShelfsInFloor', floor)
