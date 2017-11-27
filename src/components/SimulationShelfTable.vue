@@ -12,7 +12,7 @@
       </b-col>
     </b-row>
     <b-table striped hover bordered show-empty
-      :items="store.state.shelfs"
+      :items="items"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage">
@@ -20,7 +20,15 @@
         {{ row.value + ' mm' }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
+        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">
+          <span class="fa fa-trash"/>
+        </b-button>
+        <b-button variant="warning" size="sm" @click.stop="moveUp(row.item)">
+          <span class="fa fa-arrow-up"/>
+        </b-button>
+        <b-button variant="warning" size="sm" @click.stop="moveDown(row.item)">
+          <span class="fa fa-arrow-down"/>
+        </b-button>
       </template>
     </b-table>
     <b-row>
@@ -75,6 +83,9 @@ export default {
       })
       return length
     },
+    items: function() {
+      return this.store.state.shelfs
+    },
   },
   methods: {
     onFiltered(filteredItems) {
@@ -84,6 +95,12 @@ export default {
     removeRow(shelf) {
       store.commit('removeShelf', shelf)
       store.commit('unusedShelf', shelf)
+    },
+    moveUp(shelf) {
+      store.commit('moveShelfUp', shelf)
+    },
+    moveDown(shelf) {
+      store.commit('moveShelfDown', shelf)
     },
     removeAll(shelf) {
       store.state.shelfs.forEach(function(shelf) {

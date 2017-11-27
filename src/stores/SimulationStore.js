@@ -31,6 +31,36 @@ export default new Vuex.Store({
       state.shelfIndex += 1
       state.shelfs.push(shelf)
     },
+    moveShelfUp(state, shelf) {
+      var index = binarySearch(state.shelfs, shelf, function(a, b) { return a.index - b.index })
+      if (index > 0) {
+        for (var property in shelf) {
+          if (shelf.hasOwnProperty(property)) {
+            var tmp = state.shelfs[index][property]
+            state.shelfs[index][property] = state.shelfs[index - 1][property]
+            state.shelfs[index - 1][property] = tmp
+          }
+        }
+        var tmpIndex = state.shelfs[index].index
+        state.shelfs[index].index = state.shelfs[index - 1].index
+        state.shelfs[index - 1].index = tmpIndex
+      }
+    },
+    moveShelfDown(state, shelf) {
+      var index = binarySearch(state.shelfs, shelf, function(a, b) { return a.index - b.index })
+      if (index < (state.shelfs.length - 1)) {
+        for (var property in shelf) {
+          if (shelf.hasOwnProperty(property)) {
+            var tmp = state.shelfs[index][property]
+            state.shelfs[index][property] = state.shelfs[index + 1][property]
+            state.shelfs[index + 1][property] = tmp
+          }
+        }
+        var tmpIndex = state.shelfs[index].index
+        state.shelfs[index].index = state.shelfs[index + 1].index
+        state.shelfs[index + 1].index = tmpIndex
+      }
+    },
     addShelfs(state, shelfs) {
       shelfs.forEach(function(e) {
         e.index = state.shelfIndex

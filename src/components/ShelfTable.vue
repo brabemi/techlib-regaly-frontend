@@ -20,7 +20,9 @@
         {{ row.value + ' mm' }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-button :variant="row.item._used ? 'secondary' : 'primary'" size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">Add</b-button>
+        <b-button :variant="row.item._used ? 'secondary' : 'success'" size="sm" :disabled="row.item._used" @click.stop="addShelfToSim(row.item)">
+          <span class="fa fa-plus"/>
+        </b-button>
       </template>
     </b-table>
     <b-row>

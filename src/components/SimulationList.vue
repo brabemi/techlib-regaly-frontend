@@ -25,7 +25,9 @@
           <router-link :to="{ name: 'simulation-edit', params: { id: row.item.id } }">
             <b-button variant="primary" size="sm">Edit</b-button>
           </router-link>
-          <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
+          <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">
+            <span class="fa fa-trash"/>
+          </b-button>
         </template>
       </b-table>
     </b-row>

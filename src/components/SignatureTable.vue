@@ -18,7 +18,8 @@
         }}
       </b-col>
       <b-col xl="3" class="text-right">
-         <b-button variant="primary" @click="addAll" size="sm">Add all</b-button>
+         <b-button variant="success" @click="addAll" size="sm">Add all</b-button>
+         <b-button variant="warning" @click="store.commit('clearData')" size="sm">Clear</b-button>
       </b-col>
     </b-form-row>
     <b-table striped hover bordered show-empty
@@ -30,7 +31,9 @@
         {{ row.item.signature }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
+        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">
+          <span class="fa fa-trash"/>
+        </b-button>
       </template>
     </b-table>
     <b-row>

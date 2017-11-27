@@ -20,7 +20,9 @@
         {{ row.item.signature }}
       </template>
       <template slot="actions" slot-scope="row">
-        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">Remove</b-button>
+        <b-button variant="danger" size="sm" @click.stop="removeRow(row.item)">
+          <span class="fa fa-trash"/>
+        </b-button>
       </template>
     </b-table>
     <b-row>
