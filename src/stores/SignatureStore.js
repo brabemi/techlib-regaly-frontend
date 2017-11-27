@@ -6,7 +6,7 @@ import binarySearch from 'binary-search'
 Vue.use(Vuex)
 
 var instance = axios.create({
-  baseURL: 'http://localhost:4567'
+  // baseURL: 'http://localhost:4567'
 })
 
 function processData(row, fromYear, toYear) {
