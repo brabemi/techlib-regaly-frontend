@@ -5,7 +5,7 @@
       border-variant="danger"
       header-border-variant="danger"
       header-text-variant="danger"
-      class="text-center">
+      class="text-center m-3">
       <p class="card-text">
         {{
           bookMap.unplaced.start.signature + ' - ' + bookMap.unplaced.end.signature +
@@ -18,7 +18,7 @@
         (index + 1) + ': ' + shelf.shelf.name +
         ' (' + shelf.shelf.levels + ' × ' + shelf.shelf.row_length.toLocaleString('cs-CZ') + ' mm)'
       "
-      class="text-center my_card">
+      class="text-center d-inline-block m-3">
       <p v-for="(level, index) in shelf.books" :key="index" class="card-text">
         {{
           (level.start != null ? level.start.signature + ' - ' + level.end.signature : 'empty') +
@@ -97,10 +97,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.my_card {
-  margin: 15px;
-  display: inline-block;
-}
-</style>
