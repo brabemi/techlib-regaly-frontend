@@ -78,6 +78,9 @@ export default {
       duplicitBooks: [],
     }
   },
+  mounted: function() {
+    store.commit('clearData')
+  },
   computed: {
     totalRows: function() {
       return store.state.data.length
