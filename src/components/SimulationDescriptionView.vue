@@ -1,5 +1,5 @@
 <template>
-  <b-container class="rounded border mt-2 mb-2">
+  <b-container v-if="store.state.description !== ''" class="rounded border mt-2 mb-2">
     <b-row>
       <b-col v-html="compiledMarkdown">
       </b-col>

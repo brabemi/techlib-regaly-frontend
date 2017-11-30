@@ -1,7 +1,13 @@
 <template>
   <b-container>
+    <b-row class='mb-2'>
+      Description
+    </b-row>
     <b-row>
-      <b-form-textarea v-model="store.state.description"/>
+      <b-form-textarea placeholder="Enter description" v-model="store.state.description"/>
+    </b-row>
+    <b-row v-if="store.state.description !== ''" class='mt-2'>
+      Preview
     </b-row>
     <b-row>
       <simulation-description-view/>

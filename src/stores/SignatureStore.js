@@ -28,6 +28,7 @@ export default new Vuex.Store({
   state: {
     data: [],
     prefixes: [],
+    loadingData: false,
   },
   mutations: {
     updateSavedData(state, data) {
@@ -49,7 +50,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchData({ commit }, params) {
+    fetchData({ commit, state }, params) {
+      state.loadingData = true
       var filter = []
       if (params.sig_pref !== '') { filter.push('sig_pref=' + escape(params.sig_pref)) }
       if (params.sig_num_min !== '') { filter.push('sig_num_min=' + escape(params.sig_num_min)) }
@@ -63,9 +65,11 @@ export default new Vuex.Store({
           response.data.map(function(row) { return processData(row, params.from_year, params.to_year) })
           .filter(function(e) { return e.volumes_in_timerange > 0 })
         )
+        state.loadingData = false
       })
       .catch(function(error) {
         console.log(error.message)
+        state.loadingData = false
       })
     },
     fetchPrefixes({ commit }) {

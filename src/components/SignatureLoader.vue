@@ -24,7 +24,10 @@
         </b-input-group>
       </b-col>
       <b-col xl="2" class="text-right">
-        <b-button variant="primary" @click="loadData">Load data</b-button>
+        <b-button v-if="store.state.loadingData" variant="secondary" disabled>
+          Load data <span class="fa fa-spinner fa-spin"/>
+        </b-button>
+        <b-button v-else variant="primary" @click="loadData">Load data</b-button>
       </b-col>
     </b-form-row>
   </b-container>

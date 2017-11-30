@@ -4,12 +4,14 @@ import App from '@/App'
 import router from '@/router'
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
+import VueSimpleBreakpoints from 'vue-simple-breakpoints'
 
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.css'
 
 Vue.use(BootstrapVue)
+Vue.use(VueSimpleBreakpoints)
 
 Vue.config.productionTip = false
 

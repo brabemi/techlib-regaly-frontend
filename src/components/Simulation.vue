@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
     <b-card no-body>
-      <b-tabs pills card vertical>
+      <b-tabs pills card :vertical="$breakpoints.isLargeDesktop()">
         <b-tab title="Simulation" active>
           <b-row class="mb-2">
             <simulation-control-row/>

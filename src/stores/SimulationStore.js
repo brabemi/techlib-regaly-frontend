@@ -194,6 +194,7 @@ export default new Vuex.Store({
         })
         .catch(function(error) {
           console.log(error.message)
+          router.push({ name: 'simulation-new' })
         })
     },
     fetchSimulations({ commit, dispatch }) {
