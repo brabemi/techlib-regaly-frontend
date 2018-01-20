@@ -16,7 +16,7 @@
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.2.0",
     "font-awesome": "^4.7.0",
-    "marked": "^0.3.6",
+    "marked": "^0.3.12",
     "vue": "^2.5.8",
     "vue-router": "^3.0.1",
     "vue-simple-breakpoints": "^1.0.3",
