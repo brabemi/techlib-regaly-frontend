@@ -32,6 +32,12 @@
 <script>
 import store from '@/stores/SimulationStore'
 
+function calcRest(book) {
+  var volumes = book.volumes_in_timerange
+  volumes += book.growth * store.state.reserve
+  return volumes * store.state.volumeWidth
+}
+
 export default {
   data() {
     return {
@@ -45,7 +51,8 @@ export default {
       })
       if (store.state.books.length > 0) {
         var i = 0
-        var rest = store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+        // var rest = store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+        var rest = calcRest(store.state.books[i])
         var freeSpace = 0
         bookMap.forEach(function(shelf) {
           var deadSpace = store.state.volumeWidth * shelf.shelf.segment_lengths.length
@@ -60,7 +67,8 @@ export default {
                 freeSpace -= rest
                 i++
                 if (i < store.state.books.length) {
-                  rest = store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+                  // rest = store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+                  rest = calcRest(store.state.books[i])
                 }
               }
               if (i >= store.state.books.length) {
@@ -72,7 +80,8 @@ export default {
               if (rest <= 0) {
                 i++
                 if (i < store.state.books.length) {
-                  rest = store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+                  // rest = store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+                  rest = calcRest(store.state.books[i])
                 }
               }
             } else {
@@ -84,7 +93,8 @@ export default {
           var start = store.state.books[i]
           i++
           while (i < store.state.books.length) {
-            rest += store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+            // rest += store.state.books[i].volumes_in_timerange * store.state.volumeWidth
+            rest += calcRest(store.state.books[i])
             i++
           }
           bookMap.unplaced = {start: start, end: store.state.books[i - 1], length: rest}

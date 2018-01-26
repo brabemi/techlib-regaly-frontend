@@ -4,7 +4,8 @@
       <b-col xl="9" class="text-left">
         {{
           'Total volumes: ' + totalVolumes.toLocaleString('cs-CZ') +
-          ' (cca ' + Math.ceil(totalVolumes * store.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
+          ', growth: ' + yearGrowth.toLocaleString('cs-CZ') + ' volumes/year' +
+          ' (cca ' + Math.ceil((totalVolumes + totalReserve) * store.state.volumeWidth).toLocaleString('cs-CZ') + ' mm)'
         }}
       </b-col>
       <b-col xl="3" class="text-right">
@@ -59,6 +60,7 @@ export default {
       fields: {
         signature_number: { label: 'Signature', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
         volumes_in_timerange: { label: 'Volumes', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
+        growth: { label: 'Growth', sortable: false, tdClass: 'align-middle pt-1 pb-1' },
         actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' }
       },
     }
@@ -73,7 +75,17 @@ export default {
         volumes += book.volumes_in_timerange
       })
       return volumes
-    }
+    },
+    yearGrowth: function() {
+      var reserve = 0
+      store.state.books.forEach(function(book) {
+        reserve += book.growth
+      })
+      return reserve
+    },
+    totalReserve: function() {
+      return store.state.reserve * this.yearGrowth
+    },
   },
   methods: {
     removeRow(book) {

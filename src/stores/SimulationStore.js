@@ -19,6 +19,7 @@ export default new Vuex.Store({
     bookIndex: 0,
     books: [],
     volumeWidth: 35,
+    reserve: 0,
     name: '',
     description: '',
     simulations: [],

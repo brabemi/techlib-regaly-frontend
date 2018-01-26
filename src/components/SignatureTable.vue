@@ -64,6 +64,7 @@ export default {
       fields: {
         signature_number: { label: 'Signature', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         volumes_in_timerange: { label: 'Volumes', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
+        growth: { label: 'Growth', sortable: true, tdClass: 'align-middle pt-1 pb-1' },
         actions: { label: 'Actions', tdClass: 'align-middle pt-1 pb-1' }
       },
       currentPage: 1,
